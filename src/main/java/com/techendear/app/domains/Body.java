@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Body {
@@ -17,7 +18,16 @@ public class Body {
 	@Lob
 	private byte[] body;
 	
+	@OneToOne(mappedBy = "body")
+	private Request request;
 	public Body() {}
+
+	
+	public Body(byte[] body, Request request) {
+		this.body = body;
+		this.request = request;
+	}
+
 
 	public Body(UUID uuid, byte[] body) {
 		this.uuid = uuid;
@@ -38,5 +48,13 @@ public class Body {
 
 	public void setBody(byte[] body) {
 		this.body = body;
+	}
+
+	public Request getRequest() {
+		return request;
+	}
+
+	public void setRequest(Request request) {
+		this.request = request;
 	}
 }

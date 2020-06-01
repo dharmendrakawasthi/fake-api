@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Header {
@@ -16,16 +18,20 @@ public class Header {
 	private String key;
 	private String value;
 	
+	@ManyToOne
+	@JoinColumn(name = "request_id")
 	private Request request;
-	private Response response;
+//	private Response response;
 	
 	public Header() {}
 
-	public Header(String key, String value, Request request, Response response) {
+	public Header(String key, String value, Request request
+//			Response response
+			) {
 		this.key = key;
 		this.value = value;
 		this.request = request;
-		this.response = response;
+//		this.response = response;
 	}
 
 	public UUID getUuid() {
@@ -60,11 +66,11 @@ public class Header {
 		this.request = request;
 	}
 
-	public Response getResponse() {
-		return response;
-	}
-
-	public void setResponse(Response response) {
-		this.response = response;
-	}
+//	public Response getResponse() {
+//		return response;
+//	}
+//
+//	public void setResponse(Response response) {
+//		this.response = response;
+//	}
 }

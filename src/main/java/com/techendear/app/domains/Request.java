@@ -7,6 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Request {
@@ -15,19 +19,31 @@ public class Request {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private UUID uuid;
 	private String name;
+	
+	@OneToMany(mappedBy = "request")
 	private List<Header> headers;
+	
+	@ManyToOne
+	@JoinColumn(name = "auth_id")
 	private BasicAuth auth;
+	
+	@OneToOne
+	@JoinColumn(name = "request_body_id")
 	private Body body;
 	
+	@OneToOne
+	@JoinColumn(name = "response_id")
+	private Response response;
 	public Request() {}
 
-	public Request(String name, List<Header> headers, BasicAuth auth, Body body) {
+	public Request(String name, List<Header> headers, BasicAuth auth, Body body, Response response) {
 		this.name = name;
 		this.headers = headers;
 		this.auth = auth;
 		this.body = body;
+		this.response = response;
 	}
-
+	
 	public UUID getUuid() {
 		return uuid;
 	}
@@ -66,5 +82,13 @@ public class Request {
 
 	public void setBody(Body body) {
 		this.body = body;
+	}
+
+	public Response getResponse() {
+		return response;
+	}
+
+	public void setResponse(Response response) {
+		this.response = response;
 	}
 }

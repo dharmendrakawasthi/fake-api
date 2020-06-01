@@ -7,6 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Response {
@@ -15,19 +18,24 @@ public class Response {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private UUID uuid;
 	private String name;
+	
+	@OneToMany(mappedBy = "request")
 	private List<Header> headers;
-	private BasicAuth auth;
-	private Body body;
+	
+	@OneToOne
+	@JoinColumn(name = "link_id")
 	private Link link;
+	
+	@OneToOne(mappedBy = "response")
+	private Request request;
 	
 	public Response() {}
 
-	public Response(String name, List<Header> headers, BasicAuth auth, Body body, Link link) {
+	public Response(String name, List<Header> headers, Link link, Request request) {
 		this.name = name;
 		this.headers = headers;
-		this.auth = auth;
-		this.body = body;
 		this.link = link;
+		this.request = request;
 	}
 
 	public UUID getUuid() {
@@ -54,27 +62,19 @@ public class Response {
 		this.headers = headers;
 	}
 
-	public BasicAuth getAuth() {
-		return auth;
-	}
-
-	public void setAuth(BasicAuth auth) {
-		this.auth = auth;
-	}
-
-	public Body getBody() {
-		return body;
-	}
-
-	public void setBody(Body body) {
-		this.body = body;
-	}
-
 	public Link getLink() {
 		return link;
 	}
 
 	public void setLink(Link link) {
 		this.link = link;
+	}
+	
+	public Request getRequest() {
+		return request;
+	}
+
+	public void setRequest(Request request) {
+		this.request = request;
 	}
 }
