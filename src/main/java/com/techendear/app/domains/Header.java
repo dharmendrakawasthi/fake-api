@@ -21,17 +21,20 @@ public class Header {
 	@ManyToOne
 	@JoinColumn(name = "request_id")
 	private Request request;
-//	private Response response;
+	
+	@ManyToOne
+	@JoinColumn(name = "response_id")
+	private Response response;
 	
 	public Header() {}
 
-	public Header(String key, String value, Request request
-//			Response response
+	public Header(String key, String value, Request request,
+			Response response
 			) {
 		this.key = key;
 		this.value = value;
 		this.request = request;
-//		this.response = response;
+		this.response = response;
 	}
 
 	public UUID getUuid() {
@@ -66,11 +69,11 @@ public class Header {
 		this.request = request;
 	}
 
-//	public Response getResponse() {
-//		return response;
-//	}
-//
-//	public void setResponse(Response response) {
-//		this.response = response;
-//	}
+	public Response getResponse() {
+		return response;
+	}
+
+	public void setResponse(Response response) {
+		this.response = response;
+	}
 }

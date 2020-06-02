@@ -16,22 +16,16 @@ public class Body {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private UUID uuid;
 	@Lob
-	private byte[] body;
+	private String body;
 	
 	@OneToOne(mappedBy = "body")
 	private Request request;
-	public Body() {}
-
 	
-	public Body(byte[] body, Request request) {
+	public Body() {}
+	
+	public Body(String body, Request request) {
 		this.body = body;
 		this.request = request;
-	}
-
-
-	public Body(UUID uuid, byte[] body) {
-		this.uuid = uuid;
-		this.body = body;
 	}
 
 	public UUID getUuid() {
@@ -42,11 +36,11 @@ public class Body {
 		this.uuid = uuid;
 	}
 
-	public byte[] getBody() {
+	public String getBody() {
 		return body;
 	}
 
-	public void setBody(byte[] body) {
+	public void setBody(String body) {
 		this.body = body;
 	}
 

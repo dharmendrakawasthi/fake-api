@@ -3,12 +3,12 @@ package com.techendear.app.domains;
 import java.util.List;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -23,15 +23,15 @@ public class Request {
 	@OneToMany(mappedBy = "request")
 	private List<Header> headers;
 	
-	@ManyToOne
+	@OneToOne(cascade = CascadeType.ALL,optional = true)
 	@JoinColumn(name = "auth_id")
 	private BasicAuth auth;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "request_body_id")
 	private Body body;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "response_id")
 	private Response response;
 	public Request() {}

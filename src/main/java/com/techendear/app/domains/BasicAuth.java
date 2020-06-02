@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class BasicAuth {
@@ -17,13 +17,12 @@ public class BasicAuth {
 	private UUID uuid;
 	private String user;
 	private String pass;
-	@OneToMany(mappedBy = "auth")
-	private List<Request> requests;
+	@OneToOne(mappedBy = "auth")
+	private Request requests;
 
 	public BasicAuth() {}
 
-	public BasicAuth(String user, String pass, List<Request> requests) {
-		super();
+	public BasicAuth(String user, String pass, Request requests) {
 		this.user = user;
 		this.pass = pass;
 		this.requests = requests;
@@ -53,11 +52,11 @@ public class BasicAuth {
 		this.pass = pass;
 	}
 
-	public List<Request> getRequest() {
+	public Request getRequest() {
 		return requests;
 	}
 
-	public void setRequest(List<Request> requests) {
+	public void setRequest(Request requests) {
 		this.requests = requests;
 	}
 }
