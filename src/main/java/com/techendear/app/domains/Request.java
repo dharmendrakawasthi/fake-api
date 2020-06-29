@@ -20,10 +20,10 @@ public class Request {
 	private UUID uuid;
 	private String name;
 	
-	@OneToMany(mappedBy = "request")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "request")
 	private List<Header> headers;
 	
-	@OneToOne(cascade = CascadeType.ALL,optional = true)
+	@OneToOne(cascade = CascadeType.ALL, optional = true)
 	@JoinColumn(name = "auth_id")
 	private BasicAuth auth;
 	
@@ -34,6 +34,7 @@ public class Request {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "response_id")
 	private Response response;
+	
 	public Request() {}
 
 	public Request(String name, List<Header> headers, BasicAuth auth, Body body, Response response) {
